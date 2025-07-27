@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=ead'
+      - 'POSTGRES_PASSWORD=eadpass'
+      - 'POSTGRES_USER=user'
+    ports:
+      - '5432:5432'
+    container_name: ead_bd
