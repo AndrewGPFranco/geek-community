@@ -1,6 +1,7 @@
 package com.agp.ead.rest;
 
 import com.agp.ead.dtos.auth.InputRegisterUser;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -49,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/user/register")
-    ResponseEntity<String> registerUser(@RequestBody InputRegisterUser inputDTO) {
+    ResponseEntity<String> registerUser(@RequestBody @Valid InputRegisterUser inputDTO) {
         authService.registerUser(inputDTO);
         return ResponseEntity.ok().body("Usuário registrado com sucesso!");
     }
