@@ -34,9 +34,9 @@ public class User implements UserDetails {
     @NotBlank(message = "O nome é obrigatório!")
     private String nome;
 
-    @Column(name = "email", nullable = false)
     @NotBlank(message = "O email é obrigatório!")
     @Email(message = "Email fora do formato esperado!")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @NotBlank(message = "A senha é obrigatória!")
@@ -51,7 +51,7 @@ public class User implements UserDetails {
     @NotNull(message = "A data de nascimento deve ser informada!")
     private LocalDate dataNascimento;
 
-    @Column(name = "apelido", nullable = false)
+    @Column(name = "apelido", nullable = false, unique = true)
     @NotBlank(message = "É obrigatório informar um apelido!")
     private String apelido;
 

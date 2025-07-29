@@ -8,11 +8,11 @@ CREATE TABLE users
 (
     id              UUID         NOT NULL,
     nome            VARCHAR(255) NOT NULL,
-    email           VARCHAR(255) NOT NULL,
+    email           VARCHAR(255) NOT NULL UNIQUE,
     senha           VARCHAR(60)  NOT NULL,
     nome_completo   VARCHAR(255) NOT NULL,
     data_nascimento date         NOT NULL,
-    apelido         VARCHAR(255) NOT NULL,
+    apelido         VARCHAR(255) NOT NULL UNIQUE,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
