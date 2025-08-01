@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.agp</groupId>
-	<artifactId>ead</artifactId>
+	<artifactId>geek</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ead</name>
-	<description>Plataforma para compartilhar meus cursos online</description>
+	<name>geek</name>
+	<description>Comunidade geek feito para fãs de animes e mangás</description>
 	<url/>
 	<licenses>
 		<license/>
