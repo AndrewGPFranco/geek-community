@@ -24,7 +24,7 @@ public class JwtService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.create()
-                    .withIssuer("ead-agp")
+                    .withIssuer("geek-agp")
                     .withSubject(user.getApelido())
                     .withClaim("id", user.getId().toString())
                     .withClaim("email", user.getEmail())
@@ -41,7 +41,7 @@ public class JwtService {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
             return JWT.require(algorithm)
-                    .withIssuer("ead-agp")
+                    .withIssuer("geek-agp")
                     .build()
                     .verify(token)
                     .getSubject();
