@@ -1,6 +1,5 @@
 package com.agp.geek.dtos.auth;
 
-import com.agp.geek.enums.RoleType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +14,6 @@ public record InputRegisterUser(
         @NotBlank String nomeCompleto,
         @NotNull LocalDate dataNascimento,
         @NotBlank String apelido,
-        @NotEmpty Set<RoleType> roles
+        @NotEmpty Set<String> roles
 ) {
 }
