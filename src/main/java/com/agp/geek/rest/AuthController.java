@@ -32,7 +32,7 @@ public class AuthController {
     private final AuthService authService;
     private final AuthenticationManager authManager;
 
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     ResponseEntity<ResponseAPI> login(@RequestBody LoginRequestDTO dto) {
         try {
             UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(),
