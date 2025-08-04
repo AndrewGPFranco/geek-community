@@ -39,7 +39,7 @@ public class AuthController {
                     dto.password());
 
             Authentication auth = this.authManager.authenticate(usernamePassword);
-            String token = jwtService.generateToken((User) auth.getPrincipal());
+            String token = jwtService.geradorDeTokenJWT((User) auth.getPrincipal());
 
             return ResponseEntity.ok().body(new ResponseAPI(token));
         } catch (BadCredentialsException e) {
@@ -61,7 +61,7 @@ public class AuthController {
             if (token == null || token.equals("null") || token.isEmpty())
                 return ResponseEntity.ok().body(false);
 
-            jwtService.validateToken(token);
+            jwtService.validaToken(token);
             return ResponseEntity.ok().body(true);
         } catch (TokenExpiredException e) {
             // Retornando status 200 pois não é um erro, foi somente uma verificação!
