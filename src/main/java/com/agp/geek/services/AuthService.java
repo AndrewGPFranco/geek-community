@@ -1,6 +1,6 @@
 package com.agp.geek.services;
 
-import com.agp.geek.dtos.auth.InputRegisterUser;
+import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.mappers.UserMapper;
 import com.agp.geek.repositories.UserRepository;
@@ -18,7 +18,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private static final String MENSAGEM_ERRO_REGISTRO = "Ocorreu um erro ao registrar o usuário, verifique os dados e tente novamente!";
 
-    public void registerUser(InputRegisterUser inputDTO) {
+    public void registraUsuario(InputRegisterUserDTO inputDTO) {
         try {
             User user = userMapper.dtoParaEntidade(inputDTO);
             userRepository.save(user);

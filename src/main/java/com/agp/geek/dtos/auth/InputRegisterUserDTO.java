@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
-public record InputRegisterUser(
+public record InputRegisterUserDTO(
         @NotBlank String nome,
         @NotBlank String email,
         @NotBlank String senha,

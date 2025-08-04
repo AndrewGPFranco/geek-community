@@ -1,6 +1,6 @@
 package com.agp.geek.rest;
 
-import com.agp.geek.dtos.auth.InputRegisterUser;
+import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,8 +50,8 @@ public class AuthController {
     }
 
     @PostMapping("/user/register")
-    ResponseEntity<String> registerUser(@RequestBody @Valid InputRegisterUser inputDTO) {
-        authService.registerUser(inputDTO);
+    ResponseEntity<String> registerUser(@RequestBody @Valid InputRegisterUserDTO inputDTO) {
+        authService.registraUsuario(inputDTO);
         return ResponseEntity.ok().body("Usuário registrado com sucesso!");
     }
 

@@ -1,6 +1,6 @@
 package com.agp.geek.mappers;
 
-import com.agp.geek.dtos.auth.InputRegisterUser;
+import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.enums.RoleType;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserMapper {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User dtoParaEntidade(InputRegisterUser dto) {
+    public User dtoParaEntidade(InputRegisterUserDTO dto) {
         return User.builder()
                 .nome(dto.nome())
                 .email(dto.email())
@@ -28,7 +28,7 @@ public class UserMapper {
                 .build();
     }
 
-    private Set<RoleType> devolveRolesTratadas(Set<String> roles) {
+    protected Set<RoleType> devolveRolesTratadas(Set<String> roles) {
         return roles.stream().map(role -> RoleType.valueOf(role.toUpperCase())).collect(Collectors.toSet());
     }
 
