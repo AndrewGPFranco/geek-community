@@ -1,5 +1,6 @@
 package com.agp.geek.services;
 
+import com.agp.geek.dtos.auth.ChangePasswordDTO;
 import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.mappers.UserMapper;
@@ -46,5 +47,10 @@ public class AuthService {
         // os únicos campos atualmente que é unique é o email e o apelido.
         log.error(mensagemException);
         return MENSAGEM_ERRO_REGISTRO;
+    }
+
+    public void changePassword(User user, ChangePasswordDTO input) {
+        user.setSenha(userMapper.encriptarSenha(input.newPassword()));
+        userRepository.save(user);
     }
 }

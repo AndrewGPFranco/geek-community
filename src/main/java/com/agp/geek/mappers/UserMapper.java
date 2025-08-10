@@ -20,7 +20,7 @@ public class UserMapper {
         return User.builder()
                 .nome(dto.nome())
                 .email(dto.email())
-                .senha(bCryptPasswordEncoder.encode(dto.senha()))
+                .senha(encriptarSenha(dto.senha()))
                 .nomeCompleto(dto.nomeCompleto())
                 .dataNascimento(dto.dataNascimento())
                 .apelido(dto.apelido())
@@ -30,6 +30,10 @@ public class UserMapper {
 
     protected Set<RoleType> devolveRolesTratadas(Set<String> roles) {
         return roles.stream().map(role -> RoleType.valueOf(role.toUpperCase())).collect(Collectors.toSet());
+    }
+
+    public String encriptarSenha(String senha) {
+        return bCryptPasswordEncoder.encode(senha);
     }
 
 }

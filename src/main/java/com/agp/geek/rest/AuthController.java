@@ -1,5 +1,6 @@
 package com.agp.geek.rest;
 
+import com.agp.geek.dtos.auth.ChangePasswordDTO;
 import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,6 +69,12 @@ public class AuthController {
             // Retornando status 200 pois não é um erro, foi somente uma verificação!
             return ResponseEntity.status(200).body(false);
         }
+    }
+
+    @PostMapping("/user/change-password")
+    ResponseEntity<String> changePassword(@AuthenticationPrincipal User user, @Valid @RequestBody ChangePasswordDTO input) {
+        authService.changePassword(user, input);
+        return ResponseEntity.ok().body("Senha alterada com sucesso!");
     }
 
 }
