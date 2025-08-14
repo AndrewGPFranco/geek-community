@@ -58,4 +58,13 @@ public class AuthService {
     public void inviteLinkForgotPassword(String email) {
         emailService.enviarEmailParaAlteracaoSenha(email, "Alteração de senha!", "Geek Community");
     }
+
+    public void forgotPasswordChange(ChangePasswordDTO input) {
+        String email = emailService.validaUUID(input.uuid());
+        User usuario = userRepository.findByEmail(email);
+
+        if (usuario != null) {
+            changePassword(usuario, input);
+        }
+    }
 }

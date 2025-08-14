@@ -2,6 +2,7 @@ package com.agp.geek.services;
 
 import com.agp.geek.components.CacheComponent;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -40,4 +41,7 @@ public class EmailService {
         }
     }
 
+    public String validaUUID(@NotBlank String uuid) {
+        return cacheComponent.recoversCache(UUID.fromString(uuid));
+    }
 }

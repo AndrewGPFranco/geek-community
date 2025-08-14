@@ -17,7 +17,7 @@ public class CacheComponent {
         Objects.requireNonNull(cacheManager.getCache("cacheManager")).put(uuid, email);
     }
 
-    public String recoversCache(String uuid) {
+    public String recoversCache(UUID uuid) {
         return Objects.requireNonNull(cacheManager.getCache("cacheManager")).get(uuid, String.class);
     }
 

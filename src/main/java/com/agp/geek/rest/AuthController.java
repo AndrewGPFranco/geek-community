@@ -84,4 +84,10 @@ public class AuthController {
         return ResponseEntity.ok().body("Email para alteração de senha enviado!");
     }
 
+    @PostMapping("/user/forgot-password/change-password")
+    ResponseEntity<String> forgotChangePassword(@Valid @RequestBody ChangePasswordDTO input) {
+        authService.forgotPasswordChange(input);
+        return ResponseEntity.ok().body("Senha alterada com sucesso!");
+    }
+
 }
