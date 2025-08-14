@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserMapper userMapper;
+    private final EmailService emailService;
     private final UserRepository userRepository;
     private static final String MENSAGEM_ERRO_REGISTRO = "Ocorreu um erro ao registrar o usuário, verifique os dados e tente novamente!";
 
@@ -52,5 +53,9 @@ public class AuthService {
     public void changePassword(User user, ChangePasswordDTO input) {
         user.setSenha(userMapper.encriptarSenha(input.newPassword()));
         userRepository.save(user);
+    }
+
+    public void inviteLinkForgotPassword(String email) {
+        emailService.enviarEmailParaAlteracaoSenha(email, "Alteração de senha!", "Geek Community");
     }
 }

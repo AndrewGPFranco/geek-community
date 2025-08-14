@@ -1,6 +1,7 @@
 package com.agp.geek.rest;
 
 import com.agp.geek.dtos.auth.ChangePasswordDTO;
+import com.agp.geek.dtos.auth.ForgotPasswordDTO;
 import com.agp.geek.dtos.auth.InputRegisterUserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -75,6 +76,12 @@ public class AuthController {
     ResponseEntity<String> changePassword(@AuthenticationPrincipal User user, @Valid @RequestBody ChangePasswordDTO input) {
         authService.changePassword(user, input);
         return ResponseEntity.ok().body("Senha alterada com sucesso!");
+    }
+
+    @PostMapping("/user/forgot-password")
+    ResponseEntity<String> forgotPasswordInviteEmail(@Valid @RequestBody ForgotPasswordDTO input) {
+        authService.inviteLinkForgotPassword(input.email());
+        return ResponseEntity.ok().body("Email para alteração de senha enviado!");
     }
 
 }

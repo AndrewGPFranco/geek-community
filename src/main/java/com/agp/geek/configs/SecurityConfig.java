@@ -65,7 +65,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager manager = new CaffeineCacheManager("cacheRegister");
+        CaffeineCacheManager manager = new CaffeineCacheManager("cacheManager");
         manager.setCaffeine(Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000));
         return manager;
     }

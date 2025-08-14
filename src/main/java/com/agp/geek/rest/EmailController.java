@@ -18,7 +18,7 @@ public class EmailController {
     public String enviarEmail(@RequestParam String para,
                               @RequestParam String assunto,
                               @RequestParam String corpo) {
-        emailService.enviarEmailSimples(para, assunto, corpo);
+        emailService.enviarEmailParaAlteracaoSenha(para, assunto, corpo);
         return "Email enviado com sucesso!";
     }
 
