@@ -65,7 +65,7 @@ class JwtServiceTest {
         return User.builder()
                 .id(UUID.randomUUID())
                 .nome("Teste")
-                .apelido("Apelido")
+                .identificador("Identificador")
                 .dataNascimento(LocalDate.of(2001, Month.JUNE, 10))
                 .email("teste@gmail.com")
                 .nomeCompleto("Teste Completo")

@@ -63,8 +63,7 @@ public class AuthService {
         String email = emailService.validaUUID(input.uuid());
         User usuario = userRepository.findByEmail(email);
 
-        if (usuario != null) {
+        if (usuario != null)
             changePassword(usuario, input);
-        }
     }
 }

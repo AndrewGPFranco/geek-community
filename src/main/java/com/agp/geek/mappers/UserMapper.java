@@ -23,7 +23,7 @@ public class UserMapper {
                 .senha(encriptarSenha(dto.senha()))
                 .nomeCompleto(dto.nomeCompleto())
                 .dataNascimento(dto.dataNascimento())
-                .apelido(dto.apelido())
+                .identificador(dto.identificador())
                 .roles(devolveRolesTratadas(dto.roles()))
                 .build();
     }

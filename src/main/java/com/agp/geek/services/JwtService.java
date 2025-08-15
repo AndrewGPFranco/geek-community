@@ -27,7 +27,7 @@ public class JwtService {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.create()
                     .withIssuer("geek-agp")
-                    .withSubject(user.getApelido())
+                    .withSubject(user.getIdentificador())
                     .withClaim("id", user.getId().toString())
                     .withClaim("email", user.getEmail())
                     .withClaim("roles", user.getRoles().stream().map(RoleType::getDescricao).toList())

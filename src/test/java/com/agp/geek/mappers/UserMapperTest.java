@@ -36,7 +36,7 @@ class UserMapperTest {
         assertEquals(input.nome(), result.getNome());
         assertEquals(input.email(), result.getEmail());
         assertNotEquals(input.senha(), result.getSenha());
-        assertEquals(input.apelido(), result.getApelido());
+        assertEquals(input.identificador(), result.getIdentificador());
         assertEquals(input.nomeCompleto(), result.getNomeCompleto());
         assertEquals(input.dataNascimento(), result.getDataNascimento());
         assertEquals(input.roles().iterator().next(), result.getRoles().iterator().next().getDescricao());

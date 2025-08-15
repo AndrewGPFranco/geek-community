@@ -13,7 +13,7 @@ public record InputRegisterUserDTO(
         @NotBlank String senha,
         @NotBlank String nomeCompleto,
         @NotNull LocalDate dataNascimento,
-        @NotBlank String apelido,
+        @NotBlank String identificador,
         @NotEmpty Set<String> roles
 ) {
 }

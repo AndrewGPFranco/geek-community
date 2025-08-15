@@ -51,9 +51,9 @@ public class User implements UserDetails {
     @NotNull(message = "A data de nascimento deve ser informada!")
     private LocalDate dataNascimento;
 
-    @Column(name = "apelido", nullable = false, unique = true)
-    @NotBlank(message = "É obrigatório informar um apelido!")
-    private String apelido;
+    @Column(name = "identificador", nullable = false, unique = true)
+    @NotBlank(message = "É obrigatório informar um identificador!")
+    private String identificador;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
@@ -76,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.apelido;
+        return this.identificador;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class User implements UserDetails {
                 ", senha='" + senha + '\'' +
                 ", nomeCompleto='" + nomeCompleto + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", apelido='" + apelido + '\'' +
+                ", apelido='" + identificador + '\'' +
                 ", roles=" + roles +
                 '}';
     }
