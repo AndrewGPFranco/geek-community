@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -47,6 +48,8 @@ public class AuthController {
             return ResponseEntity.ok().body(new ResponseAPI(token));
         } catch (BadCredentialsException e) {
             return ResponseEntity.badRequest().body(new ResponseAPI(e.getMessage()));
+        } catch (InternalAuthenticationServiceException e) {
+            return ResponseEntity.badRequest().body(new ResponseAPI("Email digitado não encontrado no sistema!"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ResponseAPI("Ocorreu um erro ao processar o login!"));
         }
