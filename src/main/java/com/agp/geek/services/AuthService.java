@@ -30,6 +30,8 @@ public class AuthService {
 
     public UUID registraUsuario(InputRegisterUserDTO inputDTO) {
         try {
+            validNicknameAndEmail(inputDTO);
+
             User user = userMapper.dtoParaEntidade(inputDTO);
 
             String uuid = UUID.randomUUID().toString();
@@ -43,10 +45,23 @@ public class AuthService {
 
             emailService.sendCodeForRegistration(code, inputDTO.email(), "Código para ativação da conta!", "Geek Community");
             return UUID.fromString(dto.uuid());
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException("Ocorreu um problema ao cadastrar o usuário no sistema!");
         }
+    }
+
+    private void validNicknameAndEmail(InputRegisterUserDTO inputDTO) {
+        User nickameInUse = userRepository.findByIdentificador(inputDTO.identificador());
+        User emailInUse = userRepository.findByEmail(inputDTO.email());
+
+        if (nickameInUse != null)
+            throw new DataIntegrityViolationException("Usuário já em uso!");
+
+        if (emailInUse != null)
+            throw new DataIntegrityViolationException("Email já em uso!");
     }
 
     /**
