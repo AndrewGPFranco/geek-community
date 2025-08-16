@@ -41,7 +41,8 @@ public class SecurityConfig implements WebMvcConfigurer {
             "/api/v1/valid-token/**",
             "/api/v1/user/forgot-password",
             "/api/v1/user/forgot-password/change-password",
-            "/api/v1/valid-code"
+            "/api/v1/valid-code",
+	        "/api/v1/invalidate-user-cache"
     };
 
     @Bean

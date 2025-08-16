@@ -127,4 +127,9 @@ public class AuthService {
             throw new RuntimeException(MENSAGEM_ERRO_REGISTRO);
         }
     }
+
+    public void invalidaUserCache(String token) {
+        cacheComponent.removeUserCache(UUID.fromString(token));
+	    log.info("Cache com o ID: {} foi removido!", token);
+    }
 }
