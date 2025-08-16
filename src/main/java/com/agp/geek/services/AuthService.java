@@ -1,12 +1,18 @@
 package com.agp.geek.services;
 
+import com.agp.geek.components.CacheComponent;
 import com.agp.geek.dtos.auth.ChangePasswordDTO;
 import com.agp.geek.dtos.auth.InputRegisterUserDTO;
+import com.agp.geek.dtos.auth.ValidateCodeDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.mappers.UserMapper;
 import com.agp.geek.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Random;
+import java.util.UUID;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +23,29 @@ public class AuthService {
 
     private final UserMapper userMapper;
     private final EmailService emailService;
+    private final Random random = new Random();
     private final UserRepository userRepository;
+    private final CacheComponent cacheComponent;
     private static final String MENSAGEM_ERRO_REGISTRO = "Ocorreu um erro ao registrar o usuário, verifique os dados e tente novamente!";
 
-    public void registraUsuario(InputRegisterUserDTO inputDTO) {
+    public UUID registraUsuario(InputRegisterUserDTO inputDTO) {
         try {
             User user = userMapper.dtoParaEntidade(inputDTO);
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            String campoJaUtilizado = recuperaCampoJaUtilizado(e.getMessage());
-            throw new DataIntegrityViolationException(campoJaUtilizado);
+
+            String uuid = UUID.randomUUID().toString();
+            int code = 100000 + random.nextInt(900000);
+            ValidateCodeDTO dto = ValidateCodeDTO.builder()
+                    .uuid(uuid)
+                    .user(user)
+                    .code(code)
+                    .build();
+            cacheComponent.savedUser(dto, UUID.fromString(uuid));
+
+            emailService.sendCodeForRegistration(code, inputDTO.email(), "Código para ativação da conta!", "Geek Community");
+            return UUID.fromString(dto.uuid());
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new RuntimeException(MENSAGEM_ERRO_REGISTRO);
+            throw new RuntimeException("Ocorreu um problema ao cadastrar o usuário no sistema!");
         }
     }
 
@@ -63,7 +79,37 @@ public class AuthService {
         String email = emailService.validaUUID(input.uuid());
         User usuario = userRepository.findByEmail(email);
 
-        if (usuario != null)
+        if (usuario != null) {
             changePassword(usuario, input);
+            cacheComponent.removeCache(input.uuid());
+        }
+    }
+
+    /**
+     * Responsável em validar o código informado pelo usuário e salvar a conta.
+     *
+     * @param dto contendo as informações do usuário.
+     * @return TRUE caso tudo tenha saido corretamente.
+     */
+    public Boolean validateCodeAndSaveUser(ValidateCodeDTO dto) {
+        try {
+            ValidateCodeDTO validateCodeDTO = cacheComponent.recoverUserCache(UUID.fromString(dto.uuid()));
+
+            if (validateCodeDTO == null) return false;
+
+            if (dto.code().equals(validateCodeDTO.code())) {
+                userRepository.save(validateCodeDTO.user());
+                cacheComponent.removeUserCache(UUID.fromString(dto.uuid()));
+                return true;
+            }
+
+            return false;
+        } catch (DataIntegrityViolationException e) {
+            String campoJaUtilizado = recuperaCampoJaUtilizado(e.getMessage());
+            throw new DataIntegrityViolationException(campoJaUtilizado);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new RuntimeException(MENSAGEM_ERRO_REGISTRO);
+        }
     }
 }

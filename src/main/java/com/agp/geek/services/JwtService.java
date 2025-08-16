@@ -51,6 +51,7 @@ public class JwtService {
                     .verify(token)
                     .getSubject();
         } catch (TokenExpiredException e) {
+	        log.error("O token: {} não esta mais válido!", token);
             throw new TokenExpiredException("O token não esta mais válido!", e.getExpiredOn());
         } catch (JWTVerificationException e) {
             log.error(e.getMessage());

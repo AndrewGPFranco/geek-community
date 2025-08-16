@@ -1,5 +1,6 @@
 package com.agp.geek.components;
 
+import com.agp.geek.dtos.auth.ValidateCodeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,18 @@ public class CacheComponent {
 
     public void removeCache(String uuid) {
         Objects.requireNonNull(cacheManager.getCache("cacheManager")).evict(uuid);
+    }
+
+    public void savedUser(ValidateCodeDTO dto, UUID uuid) {
+        Objects.requireNonNull(cacheManager.getCache("cacheManager")).put(uuid, dto);
+    }
+
+    public ValidateCodeDTO recoverUserCache(UUID id) {
+        return Objects.requireNonNull(cacheManager.getCache("cacheManager")).get(id, ValidateCodeDTO.class);
+    }
+
+    public void removeUserCache(UUID id) {
+        Objects.requireNonNull(cacheManager.getCache("cacheManager")).evict(id);
     }
 
 }

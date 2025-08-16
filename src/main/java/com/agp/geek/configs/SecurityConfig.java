@@ -37,10 +37,11 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     private static final String[] WHITE_LIST = {
             "/api/v1/user/login",
-            "/api/v1/user/register",
-            "/api/v1/user/valid-token/**",
+            "/api/v1/user/register/first-step",
+            "/api/v1/valid-token/**",
             "/api/v1/user/forgot-password",
-            "/api/v1/user/forgot-password/change-password"
+            "/api/v1/user/forgot-password/change-password",
+            "/api/v1/valid-code"
     };
 
     @Bean

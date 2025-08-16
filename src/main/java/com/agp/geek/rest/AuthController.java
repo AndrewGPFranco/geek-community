@@ -1,8 +1,6 @@
 package com.agp.geek.rest;
 
-import com.agp.geek.dtos.auth.ChangePasswordDTO;
-import com.agp.geek.dtos.auth.ForgotPasswordDTO;
-import com.agp.geek.dtos.auth.InputRegisterUserDTO;
+import com.agp.geek.dtos.auth.*;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agp.geek.dtos.ResponseAPI;
-import com.agp.geek.dtos.auth.LoginRequestDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.services.AuthService;
 import com.agp.geek.services.JwtService;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -55,10 +54,14 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/user/register")
-    ResponseEntity<String> registerUser(@RequestBody @Valid InputRegisterUserDTO inputDTO) {
-        authService.registraUsuario(inputDTO);
-        return ResponseEntity.ok().body("Usuário registrado com sucesso!");
+    @PostMapping("/user/register/first-step")
+    ResponseEntity<UUID> registerUser(@RequestBody @Valid InputRegisterUserDTO inputDTO) {
+        return ResponseEntity.ok().body(authService.registraUsuario(inputDTO));
+    }
+
+    @PostMapping("/valid-code")
+    ResponseEntity<Boolean> validateRegistrationCode(@RequestBody ValidateCodeDTO dto) {
+        return ResponseEntity.ok().body(authService.validateCodeAndSaveUser(dto));
     }
 
     @GetMapping("/valid-token/{token}")
