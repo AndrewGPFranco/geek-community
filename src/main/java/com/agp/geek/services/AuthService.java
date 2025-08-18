@@ -31,7 +31,7 @@ public class AuthService {
 
     public UUID registraUsuario(InputRegisterUserDTO inputDTO) {
         try {
-            ValidationUtils.validEmailAndPassword(inputDTO.email(), inputDTO.senha());
+            ValidationUtils.validEmailAndPasswordAndAge(inputDTO.email(), inputDTO.senha(), inputDTO.dataNascimento());
             checksUserAndEmailInUse(inputDTO);
 
             User user = userMapper.dtoParaEntidade(inputDTO);

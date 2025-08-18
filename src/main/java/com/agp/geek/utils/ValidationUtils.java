@@ -1,7 +1,9 @@
 package com.agp.geek.utils;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 /**
@@ -18,7 +20,17 @@ public class ValidationUtils {
             "^(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$"
     );
 
-    public static void validEmailAndPassword(@NotBlank String email, @NotBlank String password) throws IllegalArgumentException {
+    public static void validEmailAndPasswordAndAge(@NotBlank String email, @NotBlank String password,
+                                                   @NotNull LocalDate dateBirth) throws IllegalArgumentException {
+        LocalDate today = LocalDate.now();
+        LocalDate tenYearsAgo = today.minusYears(10);
+
+        if (dateBirth.isAfter(today))
+            throw new IllegalArgumentException("Data de nascimento inválida!");
+
+        if (dateBirth.isAfter(tenYearsAgo))
+            throw new IllegalArgumentException("A idade mínima para utilizar o site é 10 anos!");
+
         if (!EMAIL_PATTERN.matcher(email).matches())
             throw new IllegalArgumentException("O Email informado não segue o padrão!");
 
