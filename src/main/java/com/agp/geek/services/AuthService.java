@@ -7,6 +7,7 @@ import com.agp.geek.dtos.auth.ValidateCodeDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.mappers.UserMapper;
 import com.agp.geek.repositories.UserRepository;
+import com.agp.geek.utils.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +31,8 @@ public class AuthService {
 
     public UUID registraUsuario(InputRegisterUserDTO inputDTO) {
         try {
-            validNicknameAndEmail(inputDTO);
+            ValidationUtils.validEmailAndPassword(inputDTO.email(), inputDTO.senha());
+            checksUserAndEmailInUse(inputDTO);
 
             User user = userMapper.dtoParaEntidade(inputDTO);
 
@@ -45,15 +47,16 @@ public class AuthService {
 
             emailService.sendCodeForRegistration(code, inputDTO.email(), "Código para ativação da conta!", "Geek Community");
             return UUID.fromString(dto.uuid());
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException(e.getMessage());
+        } catch (IllegalArgumentException | DataIntegrityViolationException e) {
+            log.error(e.getMessage());
+            throw e;
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException("Ocorreu um problema ao cadastrar o usuário no sistema!");
         }
     }
 
-    private void validNicknameAndEmail(InputRegisterUserDTO inputDTO) {
+    private void checksUserAndEmailInUse(InputRegisterUserDTO inputDTO) {
         User nickameInUse = userRepository.findByIdentificador(inputDTO.identificador());
         User emailInUse = userRepository.findByEmail(inputDTO.email());
 
@@ -130,6 +133,6 @@ public class AuthService {
 
     public void invalidaUserCache(String token) {
         cacheComponent.removeUserCache(UUID.fromString(token));
-	    log.info("Cache com o ID: {} foi removido!", token);
+        log.info("Cache com o ID: {} foi removido!", token);
     }
 }
