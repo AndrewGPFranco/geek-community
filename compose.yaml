@@ -17,3 +17,4 @@ services:
       - 'MONGO_INITDB_ROOT_USERNAME=user'
     ports:
       - '27017'
+    container_name: geek_bd_mongo
