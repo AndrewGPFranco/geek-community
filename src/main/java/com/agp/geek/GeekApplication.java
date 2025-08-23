@@ -1,13 +1,13 @@
-package com.agp.ead;
+package com.agp.geek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EadApplication {
+public class GeekApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EadApplication.class, args);
+		SpringApplication.run(GeekApplication.class, args);
 	}
 
 }
