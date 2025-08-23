@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: geek
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${JAVAMAIL_EMAIL}
+    password: ${JAVAMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            protocols: TLSv1.2

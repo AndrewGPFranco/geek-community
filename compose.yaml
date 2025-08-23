@@ -8,3 +8,12 @@ services:
     ports:
       - '5432:5432'
     container_name: geek_bd
+
+  mongodb:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB_DATABASE=geek'
+      - 'MONGO_INITDB_ROOT_PASSWORD=geekpass'
+      - 'MONGO_INITDB_ROOT_USERNAME=user'
+    ports:
+      - '27017'
