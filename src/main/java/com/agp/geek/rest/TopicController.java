@@ -3,10 +3,7 @@ package com.agp.geek.rest;
 import com.agp.geek.entities.Topic;
 import com.agp.geek.services.TopicService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,12 @@ public class TopicController {
     ResponseEntity<String> insertNewTopic() {
         topicService.insertTopic();
         return ResponseEntity.ok().body("Tópico inserido com sucesso!");
+    }
+
+    @DeleteMapping("/delete")
+    ResponseEntity<String> deleteAll() {
+        topicService.deleteAllTopics();
+        return ResponseEntity.ok().body("Tópicos removidos com sucesso!");
     }
 
 }

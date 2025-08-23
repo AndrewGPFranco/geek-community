@@ -1,6 +1,8 @@
 spring:
   application:
     name: geek
+  main:
+    allow-bean-definition-overriding: true
   mail:
     host: smtp.gmail.com
     port: 587
@@ -15,3 +17,9 @@ spring:
             required: true
           ssl:
             protocols: TLSv1.2
+  cassandra:
+    contact-points: localhost
+    port: 9042
+    keyspace-name: geekspace
+    schema-action: create_if_not_exists
+    local-datacenter: datacenter1

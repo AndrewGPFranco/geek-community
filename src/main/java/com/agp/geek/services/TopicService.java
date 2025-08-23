@@ -6,8 +6,9 @@ import com.agp.geek.repositories.TopicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -21,13 +22,18 @@ public class TopicService {
 
     public void insertTopic() {
         topicRepository.save(new Topic(
-            "Primeiro tópico",
+                UUID.randomUUID(),
+                "Primeiro tópico",
                 "Primeira descrição",
                 List.of(TagType.ANIME, TagType.DESENHO),
                 "andrewgomes1328@gmail.com",
-                LocalDateTime.now(),
+                LocalDate.now(),
                 null
         ));
+    }
+
+    public void deleteAllTopics() {
+        topicRepository.deleteAll();
     }
 
     public List<Topic> getAllTopics() {

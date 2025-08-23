@@ -1,52 +1,44 @@
 package com.agp.geek.entities;
 
 import com.agp.geek.enums.TagType;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
+@Table("topics")
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "topics")
 public class Topic {
 
-    @Id
-    private String id;
+    @PrimaryKeyColumn(name = "id", type = PrimaryKeyType.PARTITIONED)
+    private UUID id;
 
-    @Indexed
+    @Column("title")
     private String title;
 
+    @Column("description")
     private String description;
 
-    @Indexed
+    @Column("tags")
     private List<TagType> tags;
 
-    @Indexed
+    @Column("email_creator")
     private String emailCreator;
 
-    @CreatedDate
-    private LocalDateTime createAt;
+    @Column("created_at")
+    private LocalDate createdAt;
 
-    @LastModifiedDate
-    private LocalDateTime updateAt;
-
-    public Topic(String title, String description, List<TagType> tags, String emailCreator, LocalDateTime createAt, LocalDateTime updateAt) {
-        this.title = title;
-        this.description = description;
-        this.tags = tags;
-        this.emailCreator = emailCreator;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-    }
+    @Column("updated_at")
+    private LocalDate updatedAt;
 
     @Override
     public String toString() {
@@ -56,8 +48,8 @@ public class Topic {
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
                 ", emailCreator='" + emailCreator + '\'' +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
+                ", createAt=" + createdAt +
+                ", updateAt=" + updatedAt +
                 '}';
     }
 }
