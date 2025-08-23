@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collation = "topics")
+@Document(collection = "topics")
 public class Topic {
 
     @Id
@@ -30,6 +30,15 @@ public class Topic {
     private LocalDateTime createAt;
 
     private LocalDateTime updateAt;
+
+    public Topic(String title, String description, List<TagType> tags, String emailCreator, LocalDateTime createAt, LocalDateTime updateAt) {
+        this.title = title;
+        this.description = description;
+        this.tags = tags;
+        this.emailCreator = emailCreator;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+    }
 
     @Override
     public String toString() {
