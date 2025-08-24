@@ -1,6 +1,6 @@
 package com.agp.geek.repositories;
 
-import com.agp.geek.entities.Topic;
+import com.agp.geek.documents.Topic;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,11 @@
-package com.agp.geek.entities;
+package com.agp.geek.documents;
 
 import com.agp.geek.enums.TagType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
-import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.cassandra.core.mapping.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,8 +29,8 @@ public class Topic {
     @Column("tags")
     private List<TagType> tags;
 
-    @Column("email_creator")
-    private String emailCreator;
+    @Column("username")
+    private String username;
 
     @Column("created_at")
     private LocalDate createdAt;
@@ -40,16 +38,20 @@ public class Topic {
     @Column("updated_at")
     private LocalDate updatedAt;
 
+    @Column("comments")
+    private List<Comment> comments;
+
     @Override
     public String toString() {
         return "Topic{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
-                ", emailCreator='" + emailCreator + '\'' +
-                ", createAt=" + createdAt +
-                ", updateAt=" + updatedAt +
+                ", username='" + username + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", comments=" + comments +
                 '}';
     }
 }

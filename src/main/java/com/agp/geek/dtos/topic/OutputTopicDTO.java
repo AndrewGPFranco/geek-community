@@ -1,5 +1,6 @@
 package com.agp.geek.dtos.topic;
 
+import com.agp.geek.documents.Comment;
 import com.agp.geek.enums.TagType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -15,5 +16,6 @@ public record OutputTopicDTO(
         @NotBlank String description,
         @NotEmpty List<TagType> tags,
         @NotNull LocalDate createdAt,
-        @NotNull LocalDate updatedAt
+        @NotNull LocalDate updatedAt,
+        @NotNull List<Comment> comments
 ) {}
