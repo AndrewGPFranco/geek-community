@@ -12,11 +12,8 @@ spring:
       mail:
         smtp:
           auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            protocols: TLSv1.2
+          starttls.enable: true
+          ssl.protocols: TLSv1.2
   cassandra:
     contact-points: localhost
     port: 9042

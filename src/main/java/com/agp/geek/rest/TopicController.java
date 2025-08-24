@@ -28,7 +28,7 @@ public class TopicController {
 
     @PostMapping
     ResponseEntity<String> createNewTopic(@RequestBody @Valid InsertTopicDTO dto, @AuthenticationPrincipal User user) {
-        topicService.createANewTopic(dto, user.getEmail());
+        topicService.createANewTopic(dto, user);
         return ResponseEntity.ok().body("Tópico inserido com sucesso!");
     }
 
