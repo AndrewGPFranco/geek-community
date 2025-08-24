@@ -1,35 +1,25 @@
 package com.agp.geek.services;
 
+import com.agp.geek.dtos.topic.InsertTopicDTO;
 import com.agp.geek.entities.Topic;
-import com.agp.geek.enums.TagType;
+import com.agp.geek.mappers.TopicMapper;
 import com.agp.geek.repositories.TopicRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class TopicService {
 
+    private final TopicMapper topicMapper;
     private final TopicRepository topicRepository;
 
-    public TopicService(TopicRepository topicRepository) {
-        this.topicRepository = topicRepository;
-    }
-
-    public void insertTopic() {
-        topicRepository.save(new Topic(
-                UUID.randomUUID(),
-                "Primeiro tópico",
-                "Primeira descrição",
-                List.of(TagType.ANIME, TagType.DESENHO),
-                "andrewgomes1328@gmail.com",
-                LocalDate.now(),
-                null
-        ));
+    public void createANewTopic(InsertTopicDTO dto, String emailCreator) {
+        topicRepository.save(topicMapper.dtoToEntity(dto, emailCreator));
     }
 
     public void deleteAllTopics() {
