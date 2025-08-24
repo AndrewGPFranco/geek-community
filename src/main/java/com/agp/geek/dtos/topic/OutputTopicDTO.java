@@ -8,14 +8,30 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public record OutputTopicDTO(
-        @NotNull UUID id,
-        @NotBlank String title,
-        @NotBlank String description,
-        @NotEmpty List<TagType> tags,
-        @NotNull LocalDate createdAt,
-        @NotNull LocalDate updatedAt,
-        @NotNull List<Comment> comments
-) {}
+        @NotBlank(message = "O ID não pode ser vazio")
+        String id,
+
+        @NotBlank(message = "O título não pode ser vazio")
+        String title,
+
+        @NotBlank(message = "A descrição não pode ser vazia")
+        String description,
+
+        @NotEmpty(message = "A lista de tags não pode estar vazia")
+        List<TagType> tags,
+
+        @NotNull(message = "A data de criação não pode ser nula")
+        LocalDate createdAt,
+
+        @NotNull(message = "A data de atualização não pode ser nula")
+        LocalDate updatedAt,
+
+        @NotNull(message = "A lista de comentários não pode ser nula")
+        List<Comment> comments,
+
+        @NotBlank(message = "O nome do criador não pode ser vazio")
+        String usernameCreator
+) {
+}

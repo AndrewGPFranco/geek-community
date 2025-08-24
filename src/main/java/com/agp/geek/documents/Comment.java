@@ -5,15 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.UserDefinedType;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @UserDefinedType("comment")
 public class Comment {
 
-    private UUID id;
+    private String id;
 
     private String message;
 

@@ -1,5 +1,6 @@
 package com.agp.geek.rest;
 
+import com.agp.geek.dtos.topic.InsertCommentDTO;
 import com.agp.geek.dtos.topic.InsertTopicDTO;
 import com.agp.geek.dtos.topic.OutputTopicDTO;
 import com.agp.geek.entities.User;
@@ -36,6 +37,12 @@ public class TopicController {
     ResponseEntity<String> deleteAll() {
         topicService.deleteAllTopics();
         return ResponseEntity.ok().body("Tópicos removidos com sucesso!");
+    }
+
+    @PostMapping("/add-comment")
+    ResponseEntity<String> addCommentToTopic(@RequestBody @Valid InsertCommentDTO dto, @AuthenticationPrincipal User user) {
+        topicService.addComment(dto, user.getUsername());
+        return ResponseEntity.ok().body("Comentário adicionado!");
     }
 
 }

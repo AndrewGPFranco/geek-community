@@ -4,12 +4,10 @@ import com.agp.geek.enums.TagType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Table("topics")
@@ -17,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Topic {
 
-    @PrimaryKeyColumn(name = "id", type = PrimaryKeyType.PARTITIONED)
-    private UUID id;
+    @PrimaryKey
+    private String id;
 
     @Column("title")
     private String title;

@@ -14,13 +14,13 @@ import java.util.UUID;
 public class TopicMapper {
 
     public Topic dtoToEntity(InsertTopicDTO dto, String emailCreator) {
-        return new Topic(UUID.randomUUID(), dto.title(), dto.description(), TagType.getTagsFromStrings(dto.tags()), emailCreator,
+        return new Topic(UUID.randomUUID().toString(), dto.title(), dto.description(), TagType.getTagsFromStrings(dto.tags()), emailCreator,
                 LocalDate.now(), null, new ArrayList<>());
     }
 
     public OutputTopicDTO entityToOutputTopicDTO(Topic entity) {
         return new OutputTopicDTO(entity.getId(), entity.getTitle(), entity.getDescription(), entity.getTags(),
-                entity.getCreatedAt(), entity.getUpdatedAt(), entity.getComments());
+                entity.getCreatedAt(), entity.getUpdatedAt(), entity.getComments(), entity.getUsername());
     }
 
 }
