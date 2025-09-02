@@ -45,4 +45,16 @@ public class TopicController {
         return ResponseEntity.ok().body("Comentário adicionado!");
     }
 
+    @GetMapping("/by-id")
+    ResponseEntity<OutputTopicDTO> topicByID(@RequestParam("id") String id) {
+      OutputTopicDTO topic = topicService.getTopicById(id);
+      return ResponseEntity.ok().body(topic);
+    }
+
+    @GetMapping("/search")
+    ResponseEntity<List<OutputTopicDTO>> searchTopic(@RequestParam("query") String query) {
+        List<OutputTopicDTO> topicList = topicService.searchTopic(query);
+        return ResponseEntity.ok().body(topicList);
+    }  
+
 }

@@ -14,3 +14,15 @@ services:
     ports:
       - '9042:9042'
     container_name: geek_bd_scylla
+
+  elasticsearch:
+    container_name: geek_db_elastic
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
