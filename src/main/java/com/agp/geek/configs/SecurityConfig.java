@@ -36,6 +36,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final SecurityFilterComponent securityFilterComponent;
 
     private static final String[] WHITE_LIST = {
+            "/open/**",
             "/api/v1/user/login",
             "/api/v1/user/register/first-step",
             "/api/v1/valid-token/**",
