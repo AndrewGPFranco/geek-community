@@ -30,7 +30,7 @@ public class EmailService {
             cacheComponent.savedUUIDForgotPassword(uuid, to);
 
             String htmlContent = "<h1>Link para alteração da senha!</h1>" +
-                    "<a href=\"http://localhost:3000/auth/forgot-password/" + uuid + "\">Alterar senha</a>";
+                    "<a href=\"http://localhost:5173/auth/forgot-password/" + uuid + "\">Alterar senha</a>";
             message.setContent(htmlContent, "text/html; charset=utf-8");
 
             mailSender.send(message);
