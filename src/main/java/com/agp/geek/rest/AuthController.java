@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -36,7 +34,7 @@ public class AuthController {
     private final AuthService authService;
     private final AuthenticationManager authManager;
 
-    @PostMapping("/user/login")
+    @PostMapping("/open/v1/user/login")
     ResponseEntity<ResponseAPI> login(@RequestBody LoginRequestDTO dto) {
         try {
             UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(),
@@ -55,17 +53,17 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/user/register/first-step")
+    @PostMapping("/open/v1/user/register/first-step")
     ResponseEntity<UUID> registerUser(@RequestBody @Valid InputRegisterUserDTO inputDTO) {
         return ResponseEntity.ok().body(authService.registraUsuario(inputDTO));
     }
 
-    @PostMapping("/valid-code")
+    @PostMapping("/open/v1/valid-code")
     ResponseEntity<Boolean> validateRegistrationCode(@RequestBody ValidateCodeDTO dto) {
         return ResponseEntity.ok().body(authService.validateCodeAndSaveUser(dto));
     }
 
-    @GetMapping("/valid-token/{token}")
+    @GetMapping("/open/v1/valid-token/{token}")
     ResponseEntity<Boolean> tokenIsValid(@PathVariable String token) {
         try {
             if (token == null || token.equals("null") || token.isEmpty())
@@ -79,25 +77,25 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/user/change-password")
+    @PostMapping("/api/v1/user/change-password")
     ResponseEntity<String> changePassword(@AuthenticationPrincipal User user, @Valid @RequestBody ChangePasswordDTO input) {
         authService.changePassword(user, input);
         return ResponseEntity.ok().body("Senha alterada com sucesso!");
     }
 
-    @PostMapping("/user/forgot-password")
+    @PostMapping("/open/v1/user/forgot-password")
     ResponseEntity<String> forgotPasswordInviteEmail(@Valid @RequestBody ForgotPasswordDTO input) {
         authService.inviteLinkForgotPassword(input.email());
         return ResponseEntity.ok().body("Email para alteração de senha enviado!");
     }
 
-    @PostMapping("/user/forgot-password/change-password")
+    @PostMapping("/open/v1/user/forgot-password/change-password")
     ResponseEntity<String> forgotChangePassword(@Valid @RequestBody ChangePasswordDTO input) {
         authService.forgotPasswordChange(input);
         return ResponseEntity.ok().body("Senha alterada com sucesso!");
     }
 
-    @GetMapping("/invalidate-user-cache")
+    @GetMapping("/open/v1/invalidate-user-cache")
     void invalidateRegistrationCode(@RequestParam("token") String token) {
         authService.invalidaUserCache(token);
     }
