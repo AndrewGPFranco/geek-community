@@ -61,6 +61,9 @@ public class User implements UserDetails {
     @Size(min = 1, message = "É necessário ao menos uma (role) para o usuário")
     private Set<RoleType> roles;
 
+    @Column(name = "description")
+    private String description;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles()
@@ -90,6 +93,7 @@ public class User implements UserDetails {
                 ", dataNascimento=" + dataNascimento +
                 ", apelido='" + identificador + '\'' +
                 ", roles=" + roles +
+                ", description=" + description +
                 '}';
     }
 }

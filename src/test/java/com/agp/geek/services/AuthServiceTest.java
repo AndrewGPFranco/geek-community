@@ -49,8 +49,8 @@ class AuthServiceTest {
 
     @ParameterizedTest
     @MethodSource("getMensagensDeErroRecuperada")
-    void testeRecuperaCampoJaUtilizado(String mensagem, String esperado) {
-        String result = authService.recuperaCampoJaUtilizado(mensagem);
+    void testeRecoversFieldAlreadyUsed(String mensagem, String esperado) {
+        String result = authService.recoversFieldAlreadyUsed(mensagem);
         assertEquals(esperado, result);
     }
 }

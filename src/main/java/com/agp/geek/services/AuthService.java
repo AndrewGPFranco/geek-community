@@ -29,7 +29,7 @@ public class AuthService {
     private final CacheComponent cacheComponent;
     private static final String MENSAGEM_ERRO_REGISTRO = "Ocorreu um erro ao registrar o usuário, verifique os dados e tente novamente!";
 
-    public UUID registraUsuario(InputRegisterUserDTO inputDTO) {
+    public UUID registerUser(InputRegisterUserDTO inputDTO) {
         try {
             ValidationUtils.validEmailAndPasswordAndAge(inputDTO.email(), inputDTO.senha(), inputDTO.dataNascimento());
             checksUserAndEmailInUse(inputDTO);
@@ -72,7 +72,7 @@ public class AuthService {
      *
      * @return mensagem formatada informando o campo que já foi utilizado!
      */
-    protected String recuperaCampoJaUtilizado(String mensagemException) {
+    protected String recoversFieldAlreadyUsed(String mensagemException) {
         if (mensagemException.contains("users_email_key"))
             return "O email informado já esta em uso!";
         else if (mensagemException.contains("users_apelido_key"))
@@ -123,7 +123,7 @@ public class AuthService {
 
             return false;
         } catch (DataIntegrityViolationException e) {
-            String campoJaUtilizado = recuperaCampoJaUtilizado(e.getMessage());
+            String campoJaUtilizado = recoversFieldAlreadyUsed(e.getMessage());
             throw new DataIntegrityViolationException(campoJaUtilizado);
         } catch (Exception e) {
             log.error(e.getMessage());
