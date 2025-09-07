@@ -27,6 +27,7 @@ public class UserService {
         Optional<RoleType> role = user.getRoles().stream().findFirst();
 
         return role.map(roleType -> new InfoProfileDTO(user.getUsername(), user.getDescription(),
-                roleType.getDescricao())).orElseGet(() -> new InfoProfileDTO(user.getUsername(), user.getDescription(), ""));
+                roleType.getDescricao(), user.getCreatedAt())).orElseGet(() -> new InfoProfileDTO(user.getUsername(),
+                user.getDescription(), "", user.getCreatedAt()));
     }
 }

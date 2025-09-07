@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
@@ -64,6 +65,9 @@ public class User implements UserDetails {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "created_at")
+    private Instant createdAt;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles()
@@ -91,9 +95,10 @@ public class User implements UserDetails {
                 ", senha='" + senha + '\'' +
                 ", nomeCompleto='" + nomeCompleto + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", apelido='" + identificador + '\'' +
+                ", identificador='" + identificador + '\'' +
                 ", roles=" + roles +
-                ", description=" + description +
+                ", description='" + description + '\'' +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

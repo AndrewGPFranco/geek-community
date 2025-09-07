@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class UserMapper {
                 .dataNascimento(dto.dataNascimento())
                 .identificador(dto.identificador())
                 .roles(devolveRolesTratadas(dto.roles()))
+                .createdAt(Instant.now())
                 .build();
     }
 
