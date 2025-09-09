@@ -3,6 +3,7 @@ package com.agp.geek.rest;
 import com.agp.geek.dtos.topic.InsertCommentDTO;
 import com.agp.geek.dtos.topic.InsertTopicDTO;
 import com.agp.geek.dtos.topic.OutputTopicDTO;
+import com.agp.geek.dtos.topic.ScreenNewTopicDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.services.TopicService;
 import jakarta.validation.Valid;
@@ -50,14 +51,19 @@ public class TopicController {
 
     @GetMapping("/open/v1/topic/by-id")
     ResponseEntity<OutputTopicDTO> topicByID(@RequestParam("id") String id) {
-      OutputTopicDTO topic = topicService.getTopicById(id);
-      return ResponseEntity.ok().body(topic);
+        OutputTopicDTO topic = topicService.getTopicById(id);
+        return ResponseEntity.ok().body(topic);
     }
 
     @GetMapping("/open/v1/topic/search")
     ResponseEntity<List<OutputTopicDTO>> searchTopic(@RequestParam("query") String query) {
         List<OutputTopicDTO> topicList = topicService.searchTopic(query);
         return ResponseEntity.ok().body(topicList);
-    }  
+    }
+
+    @GetMapping("/api/v1/itens-topic")
+    ResponseEntity<ScreenNewTopicDTO> getItensToCreateTopic() {
+        return ResponseEntity.ok().body(topicService.getItensToCreateTopic());
+    }
 
 }

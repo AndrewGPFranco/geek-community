@@ -6,8 +6,10 @@ import com.agp.geek.dtos.topic.InsertCommentDTO;
 import com.agp.geek.dtos.topic.InsertTopicDTO;
 import com.agp.geek.dtos.topic.OutputTopicDTO;
 import com.agp.geek.documents.Topic;
+import com.agp.geek.dtos.topic.ScreenNewTopicDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.enums.RoleType;
+import com.agp.geek.enums.TagType;
 import com.agp.geek.exceptions.NotFoundException;
 import com.agp.geek.mappers.TopicMapper;
 import com.agp.geek.repositories.TopicRepository;
@@ -21,10 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -83,6 +82,10 @@ public class TopicService {
         }
 
         return outputTopicDTOS;
-    } 
+    }
 
+    public ScreenNewTopicDTO getItensToCreateTopic() {
+        List<String> tags = Arrays.stream(TagType.values()).map(TagType::getDescription).toList();
+        return new ScreenNewTopicDTO(tags);
+    }
 }
