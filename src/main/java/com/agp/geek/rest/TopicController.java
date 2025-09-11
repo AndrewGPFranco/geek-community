@@ -1,9 +1,6 @@
 package com.agp.geek.rest;
 
-import com.agp.geek.dtos.topic.InsertCommentDTO;
-import com.agp.geek.dtos.topic.InsertTopicDTO;
-import com.agp.geek.dtos.topic.OutputTopicDTO;
-import com.agp.geek.dtos.topic.ScreenNewTopicDTO;
+import com.agp.geek.dtos.topic.*;
 import com.agp.geek.entities.User;
 import com.agp.geek.services.TopicService;
 import jakarta.validation.Valid;
@@ -69,6 +66,12 @@ public class TopicController {
     @GetMapping("/api/v1/amount-topic-written")
     ResponseEntity<Integer> amountTopicWrittenByUser(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok().body(topicService.amountTopicWrittenByUser(user.getUsername()));
+    }
+
+    @DeleteMapping("/api/v1/delete-comment")
+    ResponseEntity<String> amountTopicWrittenByUser(@AuthenticationPrincipal User user,
+                                                    @Valid @RequestBody DeleteCommentDTO dto) {
+        return ResponseEntity.ok().body(topicService.deleteComment(user.getUsername(), dto));
     }
 
 }

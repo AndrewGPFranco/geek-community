@@ -2,11 +2,8 @@ package com.agp.geek.services;
 
 import com.agp.geek.documents.Comment;
 import com.agp.geek.documents.TopicElastic;
-import com.agp.geek.dtos.topic.InsertCommentDTO;
-import com.agp.geek.dtos.topic.InsertTopicDTO;
-import com.agp.geek.dtos.topic.OutputTopicDTO;
+import com.agp.geek.dtos.topic.*;
 import com.agp.geek.documents.Topic;
-import com.agp.geek.dtos.topic.ScreenNewTopicDTO;
 import com.agp.geek.entities.User;
 import com.agp.geek.enums.RoleType;
 import com.agp.geek.enums.TagType;
@@ -92,5 +89,25 @@ public class TopicService {
 
     public Integer amountTopicWrittenByUser(String username) {
         return topicRepository.amountTopicWrittenByUser(username);
+    }
+
+    public String deleteComment(String username, DeleteCommentDTO dto) {
+        Topic topic = topicRepository.findById(String.valueOf(dto.idTopic())).orElseThrow(
+                () -> new NotFoundException("Tópico com ID: " + dto.idTopic() + " não encontrado!"));
+
+        Optional<Comment> comment = topic.getComments().stream().filter(c -> c.getId()
+                .equals(dto.idComment())).findFirst();
+
+        if (comment.isEmpty())
+            throw new NotFoundException("Comentário com ID: " + dto.idComment() + " não encontrado!");
+
+        if (!comment.get().getUsername().equals(username))
+            throw new IllegalArgumentException("Usuário informado não é o proprietário do comentário");
+
+        topic.getComments().remove(comment.get());
+
+        topicRepository.save(topic);
+
+        return "Comentário removido com sucesso!";
     }
 }
