@@ -6,7 +6,7 @@ import com.agp.geek.documents.Topic;
 import com.agp.geek.enums.TagType;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -15,7 +15,7 @@ public class TopicMapper {
 
     public Topic dtoToEntity(InsertTopicDTO dto, String emailCreator) {
         return new Topic(UUID.randomUUID().toString(), dto.title(), dto.description(), TagType.getTagsFromStrings(dto.tags()), emailCreator,
-                LocalDate.now(), null, new ArrayList<>());
+                Instant.now(), null, new ArrayList<>());
     }
 
     public OutputTopicDTO entityToOutputTopicDTO(Topic entity) {

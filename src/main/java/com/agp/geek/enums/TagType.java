@@ -11,7 +11,8 @@ public enum TagType {
     MANGA("Manga"),
     SERIE("Série"),
     DESENHO("Desenho"),
-    GAME("Jogo");
+    GAME("Jogo"),
+    PROGRAMACAO("Programação");
 
     private final String description;
 
@@ -38,6 +39,9 @@ public enum TagType {
                     break;
                 case "Jogo":
                     tags.add(GAME);
+                    break;
+                case "Programação":
+                    tags.add(PROGRAMACAO);
                     break;
             }
         }

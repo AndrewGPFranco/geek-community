@@ -66,4 +66,9 @@ public class TopicController {
         return ResponseEntity.ok().body(topicService.getItensToCreateTopic());
     }
 
+    @GetMapping("/api/v1/amount-topic-written")
+    ResponseEntity<Integer> amountTopicWrittenByUser(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok().body(topicService.amountTopicWrittenByUser(user.getUsername()));
+    }
+
 }

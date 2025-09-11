@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 public record OutputTopicDTO(
@@ -23,10 +23,10 @@ public record OutputTopicDTO(
         List<TagType> tags,
 
         @NotNull(message = "A data de criação não pode ser nula")
-        LocalDate createdAt,
+        Instant createdAt,
 
         @NotNull(message = "A data de atualização não pode ser nula")
-        LocalDate updatedAt,
+        Instant updatedAt,
 
         @NotNull(message = "A lista de comentários não pode ser nula")
         List<Comment> comments,

@@ -88,4 +88,8 @@ public class TopicService {
         List<String> tags = Arrays.stream(TagType.values()).map(TagType::getDescription).toList();
         return new ScreenNewTopicDTO(tags);
     }
+
+    public Integer amountTopicWrittenByUser(String username) {
+        return topicRepository.amountTopicWrittenByUser(username);
+    }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -30,11 +30,13 @@ public class Topic {
     @Column("username")
     private String username;
 
+    @CassandraType(type = CassandraType.Name.TIMESTAMP)
     @Column("created_at")
-    private LocalDate createdAt;
+    private Instant createdAt;
 
+    @CassandraType(type = CassandraType.Name.TIMESTAMP)
     @Column("updated_at")
-    private LocalDate updatedAt;
+    private Instant updatedAt;
 
     @Column("comments")
     private List<Comment> comments;
