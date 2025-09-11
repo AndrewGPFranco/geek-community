@@ -45,6 +45,7 @@ public class TopicService {
 
     public void deleteAllTopics() {
         topicRepository.deleteAll();
+        topicRepositoryElastic.deleteAll();
     }
 
     public List<OutputTopicDTO> getAllTopics(Integer pageSize, Integer pageNumber) {
